@@ -1,0 +1,7 @@
+// 1.21.1	2026-10-13T10:17:47.4948806	Weather Machine/Model Definitions
+b067893afb4d31161ef97edf76182bac367c9919 assets\weathermachine\models\item\weather_machine_rain.json
+b3506241fa7ed86b49e2a3df0f55fe8888af23a4 assets\weathermachine\models\item\weather_machine_thunder.json
+52ed8a8181d280711f6a745e99e3b0930c50f35e assets\weathermachine\models\item\weather_machine_match_thunder.json
+31ed0fb00c90bab9ac936b3973f7b7bdd3199735 assets\weathermachine\models\item\weather_machine.json
+03b72f1f8027d9c21a0eed68e5dde31a6c4e9b26 assets\weathermachine\models\item\weather_machine_match.json
+e7ebf55079042998eb5051f7115dc03132ebc3ec assets\weathermachine\models\item\weather_machine_match_rain.json

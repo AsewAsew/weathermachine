@@ -1,0 +1,6 @@
+{
+  "parent": "weathermachine:item/weather_machine",
+  "textures": {
+    "layer0": "weathermachine:item/weather_machine_thunder"
+  }
+}

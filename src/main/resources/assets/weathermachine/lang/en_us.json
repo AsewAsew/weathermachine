@@ -1,0 +1,11 @@
+{
+  "item.weathermachine.weather_machine": "Weather Machine",
+  "item.weathermachine.weather_machine.mode.clear": "Mode set to CLEAR",
+  "item.weathermachine.weather_machine.mode.rain": "Mode set to RAIN",
+  "item.weathermachine.weather_machine.mode.thunder": "Mode set to THUNDER",
+  "item.weathermachine.weather_machine.warn.cooldown": "You need to wait for the cooldown to finish!",
+  "item.weathermachine.weather_machine.warn.sky_access": "You need a clear view of the sky to use this!",
+  "item.weathermachine.weather_machine.warn.is_clear": "Weather is already clear!",
+  "item.weathermachine.weather_machine.warn.is_rain": "Weather is already rain!",
+  "item.weathermachine.weather_machine.warn.is_thunder": "Weather is already thunder!"
+}
