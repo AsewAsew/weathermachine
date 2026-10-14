@@ -10,8 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.text.Text;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.TypedActionResult;
 import net.minecraft.world.World;
 
 public class WeatherMachineItem extends Item {
@@ -22,7 +22,7 @@ public class WeatherMachineItem extends Item {
     }
 
     @Override
-    public TypedActionResult<ItemStack> use(World world, PlayerEntity user, Hand hand) {
+    public ActionResult use(World world, PlayerEntity user, Hand hand) {
         ItemStack stackInHand = user.getStackInHand(hand);
         if(!world.isClient() && stackInHand.isOf(ModItems.WEATHER_MACHINE)) {
             ServerWorld serverWorld = (ServerWorld) world;
@@ -32,15 +32,15 @@ public class WeatherMachineItem extends Item {
             if(user.isSneaking()) {
                 weatherMode = (weatherMode + 1) % 3;
                 stackInHand.set(ModDataComponentTypes.WEATHER_MODE, weatherMode);
-                return TypedActionResult.success(stackInHand);
+                return ActionResult.SUCCESS_SERVER;
             }
             if(cooldown > 0) {
-                user.sendMessage(Text.translatable("item.weathermachine.weather_machine.warn.cooldown"));
-                return TypedActionResult.fail(stackInHand);
+                user.sendMessage(Text.translatable("item.weathermachine.weather_machine.warn.cooldown"), false);
+                return ActionResult.FAIL;
             }
             if(!world.isSkyVisible(user.getBlockPos())) {
-                user.sendMessage(Text.translatable("item.weathermachine.weather_machine.warn.sky_access"));
-                return TypedActionResult.fail(stackInHand);
+                user.sendMessage(Text.translatable("item.weathermachine.weather_machine.warn.sky_access"), false);
+                return ActionResult.FAIL;
             }
             if(weatherMode == currentWeather) {
                 Text matchingWeatherText = switch (weatherMode) {
@@ -49,8 +49,8 @@ public class WeatherMachineItem extends Item {
                     case 2 -> Text.translatable("item.weathermachine.weather_machine.warn.is_thunder");
                     default -> Text.literal("ERROR DISPLAYING ERROR MESSAGE!");
                 };
-                user.sendMessage(matchingWeatherText);
-                return TypedActionResult.fail(stackInHand);
+                user.sendMessage(matchingWeatherText, false);
+                return ActionResult.FAIL;
             }
             boolean rain = weatherMode > 0, thunder = weatherMode > 1;
             serverWorld.setWeather(!rain ? 12000 : 0, rain ? 12000 : 0, rain, thunder);
@@ -59,7 +59,7 @@ public class WeatherMachineItem extends Item {
                 stackInHand.damage(1, serverWorld, (ServerPlayerEntity) user,
                         item -> user.sendEquipmentBreakStatus(item, EquipmentSlot.MAINHAND));
             }
-            return TypedActionResult.success(stackInHand);
+            return ActionResult.SUCCESS_SERVER;
         }
         return super.use(world, user, hand);
     }
