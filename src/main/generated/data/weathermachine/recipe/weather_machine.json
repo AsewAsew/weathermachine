@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "#": {
-      "item": "minecraft:lightning_rod"
-    },
-    "C": {
-      "item": "minecraft:compass"
-    },
-    "L": {
-      "item": "minecraft:lapis_lazuli"
-    }
+    "#": "minecraft:lightning_rod",
+    "C": "minecraft:compass",
+    "L": "minecraft:lapis_lazuli"
   },
   "pattern": [
     "LL#",

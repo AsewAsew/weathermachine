@@ -1,17 +1,11 @@
 package asewasew.weathermachine.datagen;
 
-import asewasew.weathermachine.WeatherMachine;
 import asewasew.weathermachine.item.ModItems;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import asewasew.weathermachine.util.ModNumericProperty;
+import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
-import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
-import net.minecraft.data.client.BlockStateModelGenerator;
-import net.minecraft.data.client.ItemModelGenerator;
-import net.minecraft.data.client.ModelIds;
-import net.minecraft.util.Identifier;
-
-import java.util.List;
+import net.minecraft.client.data.*;
+import net.minecraft.client.render.item.model.*;
 
 public class ModModelProvider extends FabricModelProvider {
     public ModModelProvider(FabricDataOutput output) {
@@ -23,58 +17,21 @@ public class ModModelProvider extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerator itemModelGenerator) {
-        Identifier itemModelId = ModelIds.getItemModelId(ModItems.WEATHER_MACHINE);
+        ItemModel.Unbaked clear = ItemModels.basic(itemModelGenerator.upload(ModItems.WEATHER_MACHINE, Models.GENERATED));
+        ItemModel.Unbaked clearMatch = ItemModels.basic(itemModelGenerator.registerSubModel(ModItems.WEATHER_MACHINE, "_match", Models.GENERATED));
+        ItemModel.Unbaked rain = ItemModels.basic(itemModelGenerator.registerSubModel(ModItems.WEATHER_MACHINE, "_rain", Models.GENERATED));
+        ItemModel.Unbaked rainMatch = ItemModels.basic(itemModelGenerator.registerSubModel(ModItems.WEATHER_MACHINE, "_match_rain", Models.GENERATED));
+        ItemModel.Unbaked thunder = ItemModels.basic(itemModelGenerator.registerSubModel(ModItems.WEATHER_MACHINE, "_thunder", Models.GENERATED));
+        ItemModel.Unbaked thunderMatch = ItemModels.basic(itemModelGenerator.registerSubModel(ModItems.WEATHER_MACHINE, "_match_thunder", Models.GENERATED));
 
-        List<String> modes = List.of("clear", "rain", "thunder");
-
-        itemModelGenerator.writer.accept(itemModelId, () -> {
-            JsonObject json = new JsonObject();
-            json.addProperty("parent", "minecraft:item/generated");
-
-            JsonObject textures = new JsonObject();
-            textures.addProperty("layer0", itemModelId.toString());
-            json.add("textures", textures);
-
-            JsonArray overrides = new JsonArray();
-            for(int i = 0; i <= 1; i++) {
-                float pre1 = ((float) i);
-                for(int j = 0; j <= 2; j++) {
-                    if(i == 0 && j == 0) { continue; }
-                    float pre2 = ((float) j) / 2f;
-
-                    JsonObject overrideCase = new JsonObject();
-                    JsonObject predicate = new JsonObject();
-                    if(i > 0) { predicate.addProperty(WeatherMachine.id("match").toString(), pre1); }
-                    if(j > 0) { predicate.addProperty(WeatherMachine.id("weather_mode").toString(), pre2); }
-
-                    overrideCase.add("predicate", predicate);
-                    overrideCase.addProperty("model", itemModelId.withSuffixedPath(
-                            (i > 0 ? "_match" : "") + (j > 0 ? "_" + modes.get(j) : "")).toString());
-
-                    overrides.add(overrideCase);
-                }
-            }
-
-            json.add("overrides", overrides);
-            return json;
-        });
-
-        for(int i = 0; i <= 1; i++) {
-            for(int j = 0; j <= 2; j++) {
-                if(i == 0 && j == 0) { continue; }
-                Identifier newId = itemModelId.withSuffixedPath((i > 0 ? "_match" : "") + (j > 0 ? "_" + modes.get(j) : ""));
-
-                itemModelGenerator.writer.accept(newId, () -> {
-                    JsonObject json = new JsonObject();
-                    json.addProperty("parent", itemModelId.toString());
-
-                    JsonObject textures = new JsonObject();
-                    textures.addProperty("layer0", newId.toString());
-
-                    json.add("textures", textures);
-                    return json;
-                });
-            }
-        }
+        itemModelGenerator.output.accept(ModItems.WEATHER_MACHINE, ItemModels.rangeDispatch(
+                new ModNumericProperty(), clear,
+                new RangeDispatchItemModel.Entry(0, clear),
+                new RangeDispatchItemModel.Entry(1, rain),
+                new RangeDispatchItemModel.Entry(2, thunder),
+                new RangeDispatchItemModel.Entry(3, clearMatch),
+                new RangeDispatchItemModel.Entry(4, rainMatch),
+                new RangeDispatchItemModel.Entry(5, thunderMatch)
+        ));
     }
 }
