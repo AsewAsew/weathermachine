@@ -13,6 +13,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public class WeatherMachineItem extends Item {
 
@@ -65,10 +66,10 @@ public class WeatherMachineItem extends Item {
     }
 
     @Override
-    public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        super.inventoryTick(stack, world, entity, slot, selected);
+    public void inventoryTick(ItemStack stack, ServerWorld world, Entity entity, @Nullable EquipmentSlot slot) {
+        super.inventoryTick(stack, world, entity, slot);
 
-        if(!world.isClient() && stack.isOf(ModItems.WEATHER_MACHINE)) {
+        if(stack.isOf(ModItems.WEATHER_MACHINE)) {
             int weatherMode = stack.getOrDefault(ModDataComponentTypes.WEATHER_MODE, 0);
             int currentWeather = (world.isRaining() ? 1 : 0) * (world.isThundering() ? 2 : 1);
             int cooldown = stack.getOrDefault(ModDataComponentTypes.COOLDOWN, 0);
