@@ -1,5 +1,5 @@
 {
-  "parent": "weathermachine:item/weather_machine",
+  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "weathermachine:item/weather_machine_thunder"
   }

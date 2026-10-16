@@ -1,0 +1,54 @@
+{
+  "model": {
+    "type": "minecraft:range_dispatch",
+    "entries": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine"
+        },
+        "threshold": 0.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine_rain"
+        },
+        "threshold": 1.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine_thunder"
+        },
+        "threshold": 2.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine_match"
+        },
+        "threshold": 3.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine_match_rain"
+        },
+        "threshold": 4.0
+      },
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "weathermachine:item/weather_machine_match_thunder"
+        },
+        "threshold": 5.0
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "weathermachine:item/weather_machine"
+    },
+    "property": "weathermachine:weather_mode"
+  }
+}
