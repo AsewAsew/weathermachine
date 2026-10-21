@@ -1,5 +1,6 @@
 package asewasew.weathermachine;
 
+import asewasew.weathermachine.datagen.ModItemTagProvider;
 import asewasew.weathermachine.datagen.ModModelProvider;
 import asewasew.weathermachine.datagen.ModRecipeProvider;
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint;
@@ -10,6 +11,7 @@ public class WeatherMachineDataGenerator implements DataGeneratorEntrypoint {
 	public void onInitializeDataGenerator(FabricDataGenerator fabricDataGenerator) {
 		FabricDataGenerator.Pack pack = fabricDataGenerator.createPack();
 
+		pack.addProvider(ModItemTagProvider::new);
 		pack.addProvider(ModModelProvider::new);
 		pack.addProvider(ModRecipeProvider::new);
 
